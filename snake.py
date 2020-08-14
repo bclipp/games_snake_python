@@ -106,7 +106,7 @@ while True:
         SCORE = 0
 
         # Reset the delay
-        DELAY = 0.12
+        # DELAY = 0.12
 
         pen.clear()
         pen.write("Score: {}  High Score: {}".format(SCORE, HIGH_SCORE), align="center", font=("Courier", 24, "normal"))

@@ -59,7 +59,7 @@ head.speed(0)
 head.shape("square")
 head.color("black")
 head.penup()
-head.goto(0, 100)
+head.goto(0, 0)
 head.direction = "stop"
 # setup keyboard
 win.listen()
@@ -89,9 +89,29 @@ pen.write("Score: 0 High Score: {}"
 # game loop
 while True:
     win.update()
-    move()
+    # Check for a collision with the border
+    if head.xcor() > 640 or head.xcor() < -640 or head.ycor() > 640 or head.ycor() < -640:
+        time.sleep(1)
+        head.goto(0, 0)
+        head.direction = "stop"
+
+        # Hide the segments
+        for segment in segments:
+            segment.goto(1000, 1000)
+
+        # Clear the segments list
+        segments.clear()
+
+        # Reset the score
+        SCORE = 0
+
+        # Reset the delay
+        DELAY = 0.12
+
+        pen.clear()
+        pen.write("Score: {}  High Score: {}".format(SCORE, HIGH_SCORE), align="center", font=("Courier", 24, "normal"))
     # setup eating
-    if head.distance(food) < 15:
+    if head.distance(food) < 21:
         x = randint(-290, 290)
         y = randint(-290, 290)
         food.goto(x, y)
@@ -101,6 +121,7 @@ while True:
         new_segment.color("grey")
         new_segment.penup()
         segments.append(new_segment)
+        DELAY -= 0.003
         SCORE = SCORE + 10
         if SCORE > HIGH_SCORE:
             HIGH_SCORE = SCORE
@@ -126,5 +147,5 @@ while True:
         x = head.xcor() + 1
         y = head.ycor() + 1
         segments[0].goto(x, y)
-
+    move()
     time.sleep(DELAY)

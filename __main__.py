@@ -51,7 +51,7 @@ HIGH_SCORE = 0
 win = turtle.Screen()
 win.title("Shimmy's game")
 win.bgcolor("blue")
-win.setup(width=700, height=700)
+win.setup(width=1100, height=1100)
 win.tracer(0)
 # snake's head
 head = turtle.Turtle()
@@ -105,10 +105,17 @@ while True:
         if SCORE > HIGH_SCORE:
             HIGH_SCORE = SCORE
         pen.clear()
-        pen.write("score: {} High Score: {}".format(SCORE, HIGH_SCORE), align="center", font=("Courier", 24, "normal"))
-    if head.xcor() > 400 or head.xcor() < -400 or head.ycor() > 400 or head.ycor() < -400:
+        pen.write("score: {} High Score: {}"
+                  .format(SCORE, HIGH_SCORE), align="center", font=("Courier", 24, "normal"))
+    if head.xcor() > 640 or head.xcor() < -640 or head.ycor() > 640 or head.ycor() < -640:
         segments = []
         head.goto(0, 0)
+        SCORE = 0
+
+        # update score
+        pen.clear()
+        pen.write("score: {} High Score: {}".format(SCORE, HIGH_SCORE), align="center", font=("Courier", 24, "normal"))
+
         head.direction = "stop"
     for index in range(len(segments) - 1, 0, -1):
         x = segments[index - 1].xcor()
